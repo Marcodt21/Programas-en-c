@@ -1,4 +1,4 @@
-
+#include<stdio.h>
 
 int pertenece(int x,int n, int a[]){
    int k=0;
