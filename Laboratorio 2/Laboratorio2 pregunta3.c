@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 float f(float x){
-    return x-1.45;
+    return x*x-2;
 }
 ///Pre: f(a)*f(b) < 0, a < b, er > 0 cecano a CERO
 float biseccion( float a, float b, float er){
