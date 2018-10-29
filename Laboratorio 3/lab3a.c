@@ -1,32 +1,35 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-
-typedef struct{
-   char nombre[20];
-   float precio;
-   char marca[20];
-
-}producto;
-
-int comparaPro(const void * a, const void * b){
-    producto *pa=(producto*)a;
-    producto *pb=(producto*)b;
-    return (pa->precio - pb->precio);
-
+#include <stdio.h>
+#include <stdlib.h>
+void escribeArreglo(int a[], char name[], int n){
+int k = 0;
+printf("\n%s = [", name);
+while (k < n-1) {
+printf("%d, ", a[k]);
+k++;
 }
-
-int main (){
-    int i;
-    producto p[3]={{"fiesta", 5000, "ford"}, {"spark", 4000, "chevrolet"}, {"Yaris", 7000, "Toyota"}};
-    qsort(p,3, sizeof(producto), comparaPro);
-
-    for(i=0; i<3; i++){
-    printf("%d. %s, %f, %s \n" ,i+1, p[i].nombre,  p[i].precio, p[i].marca);
-    };
-
-    producto *busqueda = (producto*) bsearch(&p[0], p, 3, sizeof(producto), comparaPro);
-
-    printf(" %s, %f, %s \n" , busqueda->nombre,  busqueda->precio, busqueda->marca);
-
+printf("%d].", a[k]);
+}
+void swap(int *a, int *b){
+int t = *a; *a = *b; *b = t;
+}
+/* Versiones del algoritmo de inserción */
+void insertSort(int a[], int n){
+int k = 1, j;
+while (k<n){
+j = k;
+while (j > 1 && a[j-1] > a[j]) {swap(&a[j-1], &a[j]); j--;}
+if (a[0] > a[1]) swap(&a[0], &a[1]);
+k++;
+}
+}
+void call(int a[], int n, void (*ord)(int *, int)){
+ord(a,n);
+}
+int main(){
+printf("\n Probando Ordenar:\n");
+int a[] = {12, 7, 4, 9, 2, 6};
+escribeArreglo(a, "a", 6);
+call(a, 6, insertSort);
+escribeArreglo(a, "a", 6);
+return 0;
 }
