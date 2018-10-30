@@ -27,7 +27,6 @@ int estaEn(int x, Lista L){
     while(q!=NULL && q->val!=x)q=q->sig;
     return q!=NULL;
 }
-///Escribe la lista L de nombre name entre dos corchetes
 void escribeLista(char name[], Lista L){
     printf("\n%s=[",name);
     if(L==NULL)printf("]");
@@ -57,13 +56,21 @@ void insertT(int x,Lista *L){
 }
 void elimina1(int x, Lista*L){
     Nodo*q=*L,*p;
-    while(q!=NULL&&(q->val)!=x){
-            p=q;
-            q=q->sig;
-    }
     if(q!=NULL){
+       if(q->val==x){
+        p=q;
+        q=q->sig;
+        free(p);
+       }
+       else while(q!=NULL&&(q->val)!=x){
+        p=q;
+        q=q->sig;
+       }
+       if(q!=NULL){
         p->sig=q->sig;
         free(q);
+       }
+
     }
 }
 void copia(Lista L){
@@ -82,13 +89,64 @@ void copia(Lista L){
         }
      escribeLista("Lista2",k);
 }
+int sizeR(Lista L){
+if(L == NULL) return 0;
+else return 1+ sizeR(L->sig);
+}
+int estaEnR(int x, Lista L){
+    if(L==NULL||L->val==x)return L!=NULL;
+    else estaEnR(x,L->sig);
+}
+void insertTR(int x,Lista *L){
+    if(*L==NULL){
+        Nodo*q=malloc(sizeof(Nodo));
+        q->val=x;
+        q->sig=NULL;
+        *L=q;
+    }
+    else insertTR(x,&(*L)->sig);
+}
+void eliminaR(int x, Lista *L){
+if (*L != NULL){
+if ((*L)->val == x) {
+Nodo *p = *L;
+*L = (*L)->sig;
+free(p);
+}
+else eliminaR(x, &((*L)->sig));
+}
+}
+int sizeI(Lista L){
+    int k=0;
+    while(L!=NULL){
+        L=L->sig;
+        k++;
+    }
+    return k;
+}
+int maxR(Lista L){
+    if(L->sig!=NULL){
+       Nodo*q=L;
+       if(q->val>=(q->sig)->val){
+            q->sig=(q->sig)->sig;
+            maxR(&*q);
+       }
+       else maxR(L->sig);
+
+    }
+    else return L->val;
+}
 void main(){
-    int op;
+    int op,m,opR;
     Lista l=NewList();
     char name[6]="Lista";
     int x;
     do{
-    printf("\nMarque con un numero la opcion deseada:\n1)Eliminar valor\n2)Ingresar un valor en la cabeza de la lista \n3)Verificar si es vacia la lista \n4)Primer valor de la lista \n5)Buscar valor en la lista \n6)Imprimir lista \n7)Insertar valor al final\n8)Salir\n9)Copiar lista\n");
+            printf("\nSeleccionar metodo a utilizar.\n1)Iteratico\n2)Recursivo\n3)Salir\n");
+            scanf("%d",&m);
+            switch(m){
+                case 1:{
+    printf("\nMarque con un numero la opcion deseada:\n1)Eliminar valor\n2)Ingresar un valor en la cabeza de la lista \n3)Verificar si es vacia la lista \n4)Primer valor de la lista \n5)Buscar valor en la lista \n6)Imprimir lista \n7)Insertar valor al final\n8)Copiar lista\n9)Tamaño de la lista\n");
     scanf("%d",&op);
     switch(op){
         case 1:{
@@ -129,11 +187,53 @@ void main(){
             insertT(x,&l);
             break;
         }
-        case 9:{
+        case 8:{
             copia(l);
             break;
         }
+        case 9:{
+            printf("La lista tiene un tamaño de %d",sizeI(l));
+            break;
+        }
+
+    }
+    break;
+                }
+            case 2:{
+                printf("\nMarque con un numero la opcion deseada:\n1)Tamaño de lista\n2)Buscar elemento\n3)Insertar en cola\n4)Eliminar elemanto\n5)Hallar el maximo en la lista\n");
+                scanf("%d",&opR);
+                switch(opR){
+                    case 1:{
+                    printf("\nEl tamaño de la lista es %d",sizeR(l));
+                    break;
+                }
+                    case 2:{
+                        printf("\nIngrese el numero a buscar:");
+                        scanf("%d",&x);
+                        if(estaEnR(x,l)==1)printf("\nEl numero %d si se encuentra en la lista",x);
+                        else printf("\nNo se encontro en la lista");
+                        break;
+                    }
+                    case 3:{
+                        printf("Ingrese el numero a insertar:");
+                        scanf("%d",&x);
+                        insertTR(x,&l);
+                        break;
+                    }
+                    case 4:{
+                        printf("Ingrese el numero a eliminar:");
+                        scanf("%d",&x);
+                        eliminaR(x,&l);
+                        break;
+                    }
+                    case 5:{
+                        printf("El maximo de la lista es %d",maxR(l));
+                        break;
+                    }
+                break;
+            }
     }
     }
-            while(op!=8);
+    }
+            while(m!=3);
 }
