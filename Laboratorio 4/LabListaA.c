@@ -136,6 +136,44 @@ int maxR(Lista L){
     }
     else return L->val;
 }
+void separaParImpar(Lista *L, Lista *K){
+    if(*L!=NULL){
+       Lista I=NewList();
+       Nodo *q=*L;
+       Nodo *p;
+       Nodo *r;
+       while(q!=NULL){
+          if((q->val%2)==1){
+             p=q;
+             q=q->sig;
+             p->sig=I;
+             I=p;
+             }
+           else{
+              r=q;
+              q=q->sig;
+              r->sig=*K;
+              *K=r;
+            }
+          }
+       *L=NULL;
+       q=*K;
+       while(q!=NULL){
+          p=q;
+          q=q->sig;
+          p->sig=*L;
+          *L=p;
+         }
+       *K=NULL;
+        q=I;
+       while(q!=NULL){
+           p=q;
+           q=q->sig;
+           p->sig=*K;
+           *K=p;
+       }
+       }
+}
 void main(){
     int op,m,opR;
     Lista l=NewList();
@@ -146,7 +184,7 @@ void main(){
             scanf("%d",&m);
             switch(m){
                 case 1:{
-    printf("\nMarque con un numero la opcion deseada:\n1)Eliminar valor\n2)Ingresar un valor en la cabeza de la lista \n3)Verificar si es vacia la lista \n4)Primer valor de la lista \n5)Buscar valor en la lista \n6)Imprimir lista \n7)Insertar valor al final\n8)Copiar lista\n9)Tamaño de la lista\n");
+    printf("\nMarque con un numero la opcion deseada:\n1)Eliminar valor\n2)Ingresar un valor en la cabeza de la lista \n3)Verificar si es vacia la lista \n4)Primer valor de la lista \n5)Buscar valor en la lista \n6)Imprimir lista \n7)Insertar valor al final\n8)Copiar lista\n9)Tamaño de la lista\n10)");
     scanf("%d",&op);
     switch(op){
         case 1:{
@@ -194,6 +232,12 @@ void main(){
         case 9:{
             printf("La lista tiene un tamaño de %d",sizeI(l));
             break;
+        }
+        case 10:{
+            Lista K=NewList();
+            separaParImpar(&l,&K);
+            escribeLista(name, l);
+            escribeLista(name, K);
         }
 
     }
