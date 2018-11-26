@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1543193588 source:c:\users\usuario\documents\github\programas-en-c\tads\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Nodo.h"
+	"Pila.h"
+	"Cola.h"
+	"ColaAC.h"
+	"PilaArr.h"
+
+1543183247 c:\users\usuario\documents\github\programas-en-c\tads\nodo.h
+
+1543184098 c:\users\usuario\documents\github\programas-en-c\tads\pila.h
+	"Nodo.h"
+
+1543184652 c:\users\usuario\documents\github\programas-en-c\tads\cola.h
+	"Nodo.h"
+
+1543187967 c:\users\usuario\documents\github\programas-en-c\tads\colaac.h
+
+1543193896 c:\users\usuario\documents\github\programas-en-c\tads\pilaarr.h
+
