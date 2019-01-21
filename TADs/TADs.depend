@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1543193588 source:c:\users\usuario\documents\github\programas-en-c\tads\main.c
+1543194095 source:c:\users\usuario\documents\github\programas-en-c\tads\main.c
 	<stdio.h>
 	<stdlib.h>
 	"Nodo.h"
